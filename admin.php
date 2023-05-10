@@ -20,7 +20,7 @@ include './db/connection.php';
 <body>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Launch demo modal
+        Add Product
     </button>
 
     <!-- Modal -->
@@ -28,7 +28,7 @@ include './db/connection.php';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add product</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="./product.php" method="post" enctype="multipart/form-data">
@@ -63,7 +63,7 @@ include './db/connection.php';
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -90,7 +90,7 @@ include './db/connection.php';
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" />
+                        <input type="submit" value="Save changes" class="btn btn-primary" />
                     </div>
                 </form>
             </div>
@@ -104,9 +104,10 @@ include './db/connection.php';
         if (mysqli_num_rows($select_product) > 0) {
             while ($fetch_product = mysqli_fetch_assoc($select_product)) {
                 ?>
-                <div class="product" id=<?php echo $fetch_product['id'] ?> onclick="showProduct(this)" data-bs-toggle="modal"
-                    data-bs-target="#showModal">
-                    <img width="100px" height="100px" src="./assets/<?php echo $fetch_product['image']; ?>" alt="">
+                <div class="product" id=<?php echo $fetch_product['id'] ?>>
+                    <button class="delete-btn" onclick="deleteProduct(this)">Delete</button>
+                    <img data-bs-toggle="modal" data-bs-target="#showModal" onclick="showProduct(this)" width="100px"
+                        height="100px" src="./assets/<?php echo $fetch_product['image']; ?>" alt="">
                     <div class="name">
                         <?php echo $fetch_product['name']; ?>
                     </div>
@@ -156,17 +157,36 @@ include './db/connection.php';
         };
 
         function showProduct(el) {
-            const id = $(el).attr("id")
-            const img = $(el).find("#prod-img").val()
-            const name = $(el).find("#prod-name").val()
-            const price = $(el).find("#prod-price").val()
-            const stock = $(el).find("#prod-stock").val()
+            const id = $(el).parents('.product').attr("id")
+            const img = $(el).parents('.product').find("#prod-img").val()
+            const name = $(el).parents('.product').find("#prod-name").val()
+            const price = $(el).parents('.product').find("#prod-price").val()
+            const stock = $(el).parents('.product').find("#prod-stock").val()
 
             $('#preview').attr("src", `./assets/${img}`)
             $('.update #name').val(name)
             $('.update #price').val(parseInt(price))
             $('.update #stock').val(parseInt(stock))
             $('.update #id').val(parseInt(id))
+        }
+
+        function deleteProduct(el) {
+            const id = parseInt($(el).parents('.product').attr("id"));
+            let data = { id: id, delete: "" };
+
+            $.ajax({
+                url: "./product.php",
+                type: "post",
+                data: data,
+                success: function (response) {
+
+                    location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
         }
 
 
