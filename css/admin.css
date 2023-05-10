@@ -1,0 +1,13 @@
+input {
+  border: 1px solid black !important;
+}
+
+.product {
+  /* text-align: center; */
+  width: fit-content;
+  cursor: pointer;
+}
+
+.insert {
+  text-align: center;
+}
