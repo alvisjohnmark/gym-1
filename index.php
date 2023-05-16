@@ -31,6 +31,7 @@ include("./db/functions.php");
                 <li><a href="./forms/login.php">LOG-IN</a></li>
                 <li><a href="./forms/login.php">LOG-OUT</a></li>
                 <li><a href="./cart.php">ADD-TO-CART</a></li>
+                <li><a href="./admin.php">ADMIN</a></li>
             </div>
 
         </ul>

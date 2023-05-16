@@ -170,6 +170,10 @@ include './db/connection.php';
             $('.update #id').val(parseInt(id))
         }
 
+        function confirmation() {
+
+        }
+
         function deleteProduct(el) {
             const id = parseInt($(el).parents('.product').attr("id"));
             let data = { id: id, delete: "" };
