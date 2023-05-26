@@ -51,7 +51,8 @@ if (isset($_GET['update_stock'])) {
     while ($fetch_cart = mysqli_fetch_assoc($cart_query)) {
       $product_id = $fetch_cart['product_id'];
       $product_quantity = $fetch_cart['quantity'];
-      mysqli_query($conn, "UPDATE `product` SET `stock`= stock - '$product_quantity'  WHERE id = '$product_id'") or die('query failed');
+      print_r($product_id);
+      mysqli_query($conn, "UPDATE `product` SET `stock`= stock - '$product_quantity'  WHERE product_id = '$product_id'") or die('query failed');
     }
   }
   header('location:cart.php?delete_all');
@@ -185,6 +186,11 @@ if (isset($_GET['update_stock'])) {
           </tr>
         </tbody>
       </table>
+
+      <div class="cart-btn">
+        <a href="./cart.php?update_stock" onclick="return confirm('purchase all from cart?');"
+          class="btn <?php echo ($grand_total > 1) ? "" : "disabled" ?>">Proceed to checkout </a>
+      </div>
     </div>
   </div>
 </body>
