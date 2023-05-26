@@ -10,9 +10,12 @@ if (isset($_GET['remove'])) {
     $id = $_GET['remove'];
     $myString = $_GET['remove'];
     $myArray = explode(',', $myString);
-    print_r($myArray[0]);
-    mysqli_query($conn, "DELETE FROM `cart` WHERE id = '$myArray[0]'") or die('query failed');
-    mysqli_query($conn, "UPDATE `product` SET `stock`= stock - '$myArray[1]'  WHERE product_id = '$myArray[3]'") or die('query failed');
+    $cart = (int) $myArray[0];
+    $qnty = (int) $myArray[1];
+    $product_id = (int) $myArray[2];
+    print_r($cart);
+    mysqli_query($conn, "DELETE FROM `cart` WHERE id = '$cart'") or die('query failed');
+    mysqli_query($conn, "UPDATE `product` SET `stock`= stock - '$qnty'  WHERE product_id = '$product_id'") or die('query failed');
     header('location:admin.php');
 }
 
@@ -126,26 +129,28 @@ if (isset($_GET['remove'])) {
         $select_product = mysqli_query($conn, "SELECT * FROM `product`") or die('query failed');
         if (mysqli_num_rows($select_product) > 0) {
             while ($fetch_product = mysqli_fetch_assoc($select_product)) {
-        ?>
-        <div class="product" id=<?php echo $fetch_product['product_id'] ?>>
-            <button class="delete-btn" onclick="deleteProduct(this)">Delete</button>
-            <img data-bs-toggle="modal" data-bs-target="#showModal" onclick="showProduct(this)" width="100px"
-                height="100px" src="./assets/<?php echo $fetch_product['image']; ?>" alt="">
-            <div class="name">
-                <?php echo $fetch_product['name']; ?>
-            </div>
-            <div class="price"> <span>&#8369;</span>
-                <?php echo $fetch_product['price']; ?>
-            </div>
-            <input type="hidden" id="prod-img" name="product_image" value="<?php echo $fetch_product['image']; ?>">
-            <input type="hidden" id="prod-name" name="product_name" value="<?php echo $fetch_product['name']; ?>">
-            <input type="hidden" id="prod-price" name="product_price" value="<?php echo $fetch_product['price']; ?>">
-            <input type="hidden" id="prod-stock" name="product_stock" value="<?php echo $fetch_product['stock']; ?>">
-        </div>
+                ?>
+                <div class="product" id=<?php echo $fetch_product['product_id'] ?>>
+                    <button class="delete-btn" onclick="deleteProduct(this)">Delete</button>
+                    <img data-bs-toggle="modal" data-bs-target="#showModal" onclick="showProduct(this)" width="100px"
+                        height="100px" src="./assets/<?php echo $fetch_product['image']; ?>" alt="">
+                    <div class="name">
+                        <?php echo $fetch_product['name']; ?>
+                    </div>
+                    <div class="price"> <span>&#8369;</span>
+                        <?php echo $fetch_product['price']; ?>
+                    </div>
+                    <input type="hidden" id="prod-img" name="product_image" value="<?php echo $fetch_product['image']; ?>">
+                    <input type="hidden" id="prod-name" name="product_name" value="<?php echo $fetch_product['name']; ?>">
+                    <input type="hidden" id="prod-price" name="product_price" value="<?php echo $fetch_product['price']; ?>">
+                    <input type="hidden" id="prod-stock" name="product_stock" value="<?php echo $fetch_product['stock']; ?>">
+                </div>
 
-        <?php
-            };
-        };
+                <?php
+            }
+            ;
+        }
+        ;
         ?>
     </div>
     <div class="container">
@@ -165,18 +170,26 @@ if (isset($_GET['remove'])) {
                     <?php
                     $grand_total = 0;
                     while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <tr>
-                        <td><?php echo $row['user_id']; ?></td>
-                        <td><img src="./assets/<?php echo $row['image']; ?>" height="100" alt=""></td>
-                        <td><?php echo $row['name']; ?></td>
-                        <td><?php echo $row['quantity']; ?></td>
-                        <td>₱<?php echo $sub_total = ($row['price'] * $row['quantity']); ?></td>
-                        <td><a href="./admin.php?remove=<?php echo $row['id']; ?>,<?php echo $row['quantity']; ?>,<?php echo $row['product_id']; ?>"
-                                class="delete-btn" onclick="return confirm('are you sure?');">Paid</a></td>
-                        </td>
-                    </tr>
-                    <?php
+                        ?>
+                        <tr>
+                            <td>
+                                <?php echo $row['user_id']; ?>
+                            </td>
+                            <td><img src="./assets/<?php echo $row['image']; ?>" height="100" alt=""></td>
+                            <td>
+                                <?php echo $row['name']; ?>
+                            </td>
+                            <td>
+                                <?php echo $row['quantity']; ?>
+                            </td>
+                            <td>₱
+                                <?php echo $sub_total = ($row['price'] * $row['quantity']); ?>
+                            </td>
+                            <td><a href="./admin.php?remove=<?php echo $row['id']; ?>,<?php echo $row['quantity']; ?>,<?php echo $row['product_id']; ?>"
+                                    class="delete-btn" onclick="return confirm('are you sure?');">Paid</a></td>
+                            </td>
+                        </tr>
+                        <?php
                         $grand_total += $sub_total;
                     }
                     ?>
@@ -195,72 +208,72 @@ if (isset($_GET['remove'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-    var loadFile = function(event) {
-        var preview = document.getElementById('preview');
-        preview.src = URL.createObjectURL(event.target.files[0]);
+        var loadFile = function (event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
 
-        console.log((event.target.files[0]));
+            console.log((event.target.files[0]));
 
-        preview.onload = function() {
-            URL.revokeObjectURL(preview.src) // free memory
-        }
-    };
-
-    var loadFile = function(event) {
-        var preview = document.getElementById('preview');
-        preview.src = URL.createObjectURL(event.target.files[0]);
-
-        console.log((event.target.files[0]));
-
-        preview.onload = function() {
-            URL.revokeObjectURL(preview.src) // free memory
-        }
-    };
-
-    function showProduct(el) {
-        const id = $(el).parents('.product').attr("id")
-        const img = $(el).parents('.product').find("#prod-img").val()
-        const name = $(el).parents('.product').find("#prod-name").val()
-        const price = $(el).parents('.product').find("#prod-price").val()
-        const stock = $(el).parents('.product').find("#prod-stock").val()
-
-        $('#preview').attr("src", `./assets/${img}`)
-        $('.update #name').val(name)
-        $('.update #price').val(parseInt(price))
-        $('.update #stock').val(parseInt(stock))
-        $('.update #id').val(parseInt(id))
-    }
-
-    function confirmation() {
-
-    }
-
-    function deleteProduct(el) {
-        const id = parseInt($(el).parents('.product').attr("id"));
-        let data = {
-            id: id,
-            delete: ""
+            preview.onload = function () {
+                URL.revokeObjectURL(preview.src) // free memory
+            }
         };
 
-        $.ajax({
-            url: "./product.php",
-            type: "post",
-            data: data,
-            success: function(response) {
+        var loadFile = function (event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
 
-                location.reload()
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log(textStatus, errorThrown);
+            console.log((event.target.files[0]));
+
+            preview.onload = function () {
+                URL.revokeObjectURL(preview.src) // free memory
             }
-        });
+        };
 
-    }
+        function showProduct(el) {
+            const id = $(el).parents('.product').attr("id")
+            const img = $(el).parents('.product').find("#prod-img").val()
+            const name = $(el).parents('.product').find("#prod-name").val()
+            const price = $(el).parents('.product').find("#prod-price").val()
+            const stock = $(el).parents('.product').find("#prod-stock").val()
+
+            $('#preview').attr("src", `./assets/${img}`)
+            $('.update #name').val(name)
+            $('.update #price').val(parseInt(price))
+            $('.update #stock').val(parseInt(stock))
+            $('.update #id').val(parseInt(id))
+        }
+
+        function confirmation() {
+
+        }
+
+        function deleteProduct(el) {
+            const id = parseInt($(el).parents('.product').attr("id"));
+            let data = {
+                id: id,
+                delete: ""
+            };
+
+            $.ajax({
+                url: "./product.php",
+                type: "post",
+                data: data,
+                success: function (response) {
+
+                    location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+        }
     </script>
 </body>
 

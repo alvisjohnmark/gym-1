@@ -6,6 +6,8 @@ include("./db/functions.php");
 
 // $user_data = check_login($con);
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +30,9 @@ include("./db/functions.php");
             <label for="checkbox_toggle" class="hamburger">&#9776;</label>
             <div class="menu">
                 <li><a href="./about/about.php">ABOUT</a></li>
-                <li><a href="./forms/login.php">LOGIN/REGISTER</a></li>
-                <li><a href="./forms/login.php">LOG-OUT</a></li>
+                <li><a href="./forms/<?php echo isset($_SESSION['user_id']) ? "logout" : "login" ?>.php">
+                        <?php echo (isset($_SESSION['user_id'])) ? "LOG-OUT" : "LOG-IN" ?>
+                    </a></li>
                 <li><a href="./cart.php">Pre-order</a></li>
                 <!-- <li><a href="./admin.php">ADMIN</a></li> -->
             </div>
