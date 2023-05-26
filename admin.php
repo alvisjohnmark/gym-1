@@ -19,9 +19,6 @@ if (isset($_GET['remove'])) {
 
 ?>
 
-<script>
-console.log(<?= json_encode($_GET['remove'], $myArray[0]); ?>);
-</script>
 
 <!DOCTYPE html>
 <html lang="en">
