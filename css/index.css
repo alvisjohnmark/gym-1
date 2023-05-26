@@ -89,7 +89,8 @@ li a {
   right: 20px;
   padding: 15px 50px;
   color: #79031d;
-  font-family: var(--logo-font);
+  font-family:'Courier New', Courier, monospace;
+  font-weight: bold;
   border: none;
   cursor: pointer;
 }
@@ -115,7 +116,7 @@ li a {
   grid-template-columns: repeat(auto-fit, minmax(185px, max-content));
   justify-content: center;
   grid-gap: 80px;
-  padding: 0 1rem;
+  padding: 1.5rem 1.5rem;
 }
 
 .card {
@@ -131,6 +132,7 @@ li a {
   overflow: hidden;
   width: 100%;
   cursor: pointer;
+  padding: 1rem;
 }
 
 .card:hover {
@@ -274,6 +276,7 @@ input[type="checkbox"] {
     left: 0;
     text-align: center;
     padding: 16px 0;
+    z-index: 99;
   }
 
   .menu li:hover {
@@ -287,6 +290,7 @@ input[type="checkbox"] {
   }
 
   input[type="checkbox"]:checked ~ .menu {
+    margin-top: 10rem;
     display: block;
   }
 
@@ -306,7 +310,7 @@ input[type="checkbox"] {
 }
 
 /*responsive hero section*/
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .footer-container {
     display: block;
   }
@@ -335,8 +339,13 @@ input[type="checkbox"] {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .footer-container{
+    display: flex;
+    justify-content: center;
     align-items: center;
+  }
+  .socials{
+    width: 90%;
   }
 }

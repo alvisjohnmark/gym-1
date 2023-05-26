@@ -1,5 +1,6 @@
 input {
   border: 1px solid black !important;
+  width: 100%;
 }
 
 .product {
@@ -10,4 +11,29 @@ input {
 
 .insert {
   text-align: center;
+}
+
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2rem;
+  gap: 1rem;
+}
+.product{
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 10px;
+}
+.name{
+  color: white;
+}
+.price{
+  color: white;
+}
+.btn{
+  align-self: center;
+}
+.home-btn{
+  text-decoration: none;
+  color: white;
 }
