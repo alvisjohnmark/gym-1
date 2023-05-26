@@ -27,11 +27,11 @@ include("./db/functions.php");
             <input type="checkbox" id="checkbox_toggle" />
             <label for="checkbox_toggle" class="hamburger">&#9776;</label>
             <div class="menu">
-                <li><a href="/about/about.html">ABOUT</a></li>
-                <li><a href="./forms/login.php">LOG-IN</a></li>
+                <li><a href="./about/about.php">ABOUT</a></li>
+                <li><a href="./forms/login.php">LOGIN/REGISTER</a></li>
                 <li><a href="./forms/login.php">LOG-OUT</a></li>
-                <li><a href="./cart.php">ADD-TO-CART</a></li>
-                <li><a href="./admin.php">ADMIN</a></li>
+                <li><a href="./cart.php">Pre-order</a></li>
+                <!-- <li><a href="./admin.php">ADMIN</a></li> -->
             </div>
 
         </ul>
@@ -41,13 +41,13 @@ include("./db/functions.php");
         <div class="content">
             <h1>HIGH PROTEIN SUPLEMENTS AT YOUR SERVICE</h1>
             <p>QUALITY SUPLEMENTS MADE WITH REAL INGREDIENTS</p>
-            <button><a href="./cart.php">Buy now!</a></button>
+            <button><a href="./cart.php">Order for pickup</a></button>
         </div>
     </section>
 
     <section class="products">
         <div class="container">
-            <h2>Products:</h2>
+            <h2>Featured Products:</h2>
             <div class="cards">
                 <div class="card">
                     <img src="./assets/d1.jpg">
@@ -60,10 +60,6 @@ include("./db/functions.php");
                 <div class="card">
                     <img src="./assets/d3.jpg">
                     <h4>Strawberry Protein Shake</h4>
-                </div>
-                <div class="card">
-                    <img src="./assets/d4.jpg">
-                    <h4>Cinnamon Protein Shake</h4>
                 </div>
                 <div class="card">
                     <img src="./assets/whey1.jpg">
@@ -89,6 +85,7 @@ include("./db/functions.php");
                     <li><a href="#" class="links">Twitter<i class="fa fa-twitter"></i></a></li>
                 </ul>
             </div>
+            <br>
         </div>
     </footer>
 </body>

@@ -18,13 +18,13 @@ if (isset($_POST['update'])) {
     $product_image = image($img);
     $product_stock = $_POST['stock'];
 
-    $update_cart = mysqli_query($conn, "UPDATE `product` SET `name`='$product_name',`price`='$product_price',`image`='$product_image',`stock`='$product_stock' WHERE id = '$id'") or die('query failed');
+    $update_cart = mysqli_query($conn, "UPDATE `product` SET `name`='$product_name',`price`='$product_price',`image`='$product_image',`stock`='$product_stock' WHERE product_id = '$id'") or die('query failed');
     header('location: admin.php');
 }
 
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
-    $delete_cart = mysqli_query($conn, "DELETE FROM `product` WHERE id = '$id'") or die('query failed');
+    $delete_cart = mysqli_query($conn, "DELETE FROM `product` WHERE product_id = '$id'") or die('query failed');
     header('location: admin.php');
 }
 
