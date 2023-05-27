@@ -10,6 +10,7 @@ if (isset($_POST['insert'])) {
     $insert_cart = mysqli_query($conn, "INSERT INTO `product`(`name`, `price`, `image`, `stock`) VALUES ('$product_name','$product_price','$product_image','$product_stock')") or die('query failed');
     header('location: admin.php');
 }
+
 if (isset($_POST['update'])) {
     $img = $_FILES["image"]["name"];
     $id = $_POST['id'];
@@ -44,5 +45,4 @@ function image($img)
     }
     return $post_image;
 }
-
 ?>

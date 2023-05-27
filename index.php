@@ -4,7 +4,6 @@ session_start();
 include("./db/connection.php");
 include("./db/functions.php");
 
-// $user_data = check_login($con);
 ?>
 
 
@@ -23,8 +22,7 @@ include("./db/functions.php");
 
 <body>
     <nav class="navbar">
-
-        <div class="logo">GYM RATS</div>
+        <div class="logo"><a class="logo" href="./index.php">GYM RATS</a></div>
         <ul class="nav-links">
             <input type="checkbox" id="checkbox_toggle" />
             <label for="checkbox_toggle" class="hamburger">&#9776;</label>
@@ -34,12 +32,11 @@ include("./db/functions.php");
                         <?php echo (isset($_SESSION['user_id'])) ? "LOG-OUT" : "LOG-IN" ?>
                     </a></li>
                 <li><a href="./cart.php">Pre-order</a></li>
-                <!-- <li><a href="./admin.php">ADMIN</a></li> -->
+                <li><a href="./mycart.php">My orders</a>
             </div>
-
         </ul>
-
     </nav>
+
     <section class="hero-section">
         <div class="content">
             <h1>HIGH PROTEIN SUPLEMENTS AT YOUR SERVICE</h1>
@@ -74,7 +71,7 @@ include("./db/functions.php");
                 </div>
                 <div class="card">
                     <img src="./assets/whey3.jpg">
-                    <h4>Unflavored Whey</h4>
+                    <h4>Mocha Chocolate Whey</h4>
                 </div>
             </div>
         </div>

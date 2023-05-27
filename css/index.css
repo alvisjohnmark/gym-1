@@ -98,6 +98,10 @@ li a {
 .hero-section button:hover {
   color: #566656;
 }
+.logo a{
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+}
 /*products*/
 
 .products {

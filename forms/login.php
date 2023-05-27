@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['user_id'] = $row['id'];
         header('location: ../index.php');
     } else {
-        $message[] = 'incorrect password or email!';
+        $message[] = 'error:';
     }
 }
 
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['user_id'] = $row['id'];
         header('location: ../admin.php');
     } else {
-        $message[] = 'incorrect password or email!';
+        $message[] = 'incorrect email or password!';
     }
 }
 
