@@ -57,6 +57,9 @@ if (isset($_GET['remove'])) {
     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addModal">
         Add Product
     </button>
+    <button class="btn">
+        <a class="home-btn" href="./orders.php">Orders</a>
+    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -162,62 +165,7 @@ if (isset($_GET['remove'])) {
         ;
         ?>
     </div>
-    <div class="container">
-        <div class="shopping-cart">
-            <h1 class="heading">Orders</h1>
-            <table>
-                <thead style="background-color:#79031d; border: 2px solid white;">
-                    <th>Name</th>
-                    <th>image</th>
-                    <th>Product name</th>
-                    <th>quantity</th>
-                    <th>price</th>
-                    <th>Paid</th>
-                    <th>Cancel order</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <?php
-                    $grand_total = 0;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                    <tr>
-                        <td>
-                            <?php echo $row['user_id'] ; ?>
-                        </td>
-                        <td><img src="./assets/<?php echo $row['image']; ?>" height="100" alt=""></td>
-                        <td>
-                            <?php echo $row['name']; ?>
-                        </td>
-                        <td>
-                            <?php echo $row['quantity']; ?>
-                        </td>
-                        <td>₱
-                            <?php echo $sub_total = ($row['price'] * $row['quantity']); ?>
-                        </td>
-                        <td><a href="./admin.php?remove=<?php echo $row['id']; ?>,<?php echo $row['quantity']; ?>,<?php echo $row['product_id']; ?>"
-                                class="delete-btn" onclick="return confirm('are you sure?');">Paid</a></td>
-                        </td>
-                        <td><a href="./admin.php ? remove=<?php echo $row['id']; ?>" class="delete-btn"
-                                onclick="return confirm('remove item from cart?');">Cancel</a></td>
-                        </td>
-                    </tr>
-                    <?php
-                        $grand_total += $sub_total;
-                    }
-                    ?>
-                    <tr class=" table-bottom">
-                        <td colspan="4">Total Sales:</td>
-                        <td>Php
-                            <?php echo $grand_total; ?>
-                        </td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
